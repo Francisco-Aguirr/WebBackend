@@ -14,3 +14,6 @@ node_modules
 
 # .DS_Store is only for Mac users
 **/.DS_Store
+
+#readme file is used to write instructions and descriptions about the project's execution.
+README.md
