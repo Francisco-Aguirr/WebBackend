@@ -4,3 +4,378 @@
 *:after {
   box-sizing: border-box;
 }
+
+/* Estilos base (mobile-first) */
+body {
+  font-family: 'Roboto', sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  color: #333;
+  background-color: #f9f9f9;
+}
+
+h1, h2, h3, h4 {
+    font-weight: 700; /* Roboto Bold */
+}
+
+.navbar-link, .footer-links a {
+    font-weight: 500; /* Peso intermedio para legibilidad */
+}
+
+.cta-button {
+    font-weight: 700; /* Bold para botones */
+}
+.container {
+  width: 90%;
+  margin: 0 auto;
+  padding: 1rem;
+}
+/* ===== HEADER STYLES ===== */
+#top-header {
+  background-color: #2c3e50; /* Coherencia con navbar/footer */
+  color: white;
+  padding: 1rem 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.siteName a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  transition: color 0.3s;
+}
+
+.siteName a:hover {
+  color: #e74c3c; /* Color branding hover */
+}
+
+#tools a {
+  color: #ecf0f1;
+  text-decoration: none;
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid #ecf0f1;
+  border-radius: 4px;
+  transition: all 0.3s;
+}
+
+#tools a:hover {
+  background-color: #e74c3c;
+  border-color: #e74c3c;
+}
+
+/* ----- Responsive Adjustments ----- */
+@media (max-width: 768px) {
+  #top-header {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .siteName a {
+    font-size: 1.5rem;
+  }
+
+  #tools a {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+  }
+}
+/* Navbar (sin cambios) */
+/* ----- Estilos base (mobile-first) ----- */
+.navbar {
+    background-color: #2c3e50; /* Color de fondo (azul oscuro) */
+    padding: 1rem 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-list {
+    display: flex;
+    flex-direction: row; /* Apilado vertical en móvil */
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 0.5rem;
+}
+
+.navbar-item {
+    text-align: center;
+}
+
+.navbar-link {
+    color: #ecf0f1; /* Color texto (blanco) */
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.75rem 1rem;
+    display: block;
+    transition: background-color 0.3s;
+    border-radius: 4px;
+}
+
+.navbar-link:hover {
+    background-color: #34495e; /* Color hover (azul más claro) */
+}
+
+/* ----- Desktop (2 columnas) ----- */
+@media (min-width: 768px) {
+    .navbar-list {
+        flex-direction: row; /* Fila horizontal en desktop */
+        justify-content: center; /* Centrado */
+        gap: 1.5rem;
+    }
+
+    .navbar-link {
+        padding: 0.5rem 1.5rem;
+    }
+}
+
+/* --- Sección Delorean (nuevo estilo con background) --- */
+.delorean-section {
+  position: relative;
+  height: 500px;
+  width: 100%;
+  margin: 2rem 0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.delorean-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/images/vehicles/delorean.jpg');
+  background-size:contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+  z-index: 1;
+}
+
+.delorean-card {
+  position: absolute;
+  top: 50%;
+  left: 2rem;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 1.5rem;
+  border-radius: 8px;
+  width: 300px;
+  z-index: 2;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Sección Upgrades (4 items) --- */
+.upgrades {
+  margin: 3rem 0;
+}
+
+.upgrade-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.upgrade-item {
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.upgrade-image {
+  width: 100%;
+  max-width: 150px;
+  height: auto;
+  border-radius: 4px;
+}
+
+/* --- Reviews --- */
+.reviews {
+  margin: 2rem 0;
+}
+
+.review-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.review-list li {
+  background-color: #fff;
+  margin: 0.5rem 0;
+  padding: 0.8rem;
+  border-radius: 4px;
+}
+
+/* --- Botón CTA --- */
+.cta-button {
+  background-color: #2c3e50;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  width: 100%;
+}
+
+/* --- Media Queries (desktop) --- */
+@media (min-width: 768px) {
+  .upgrade-grid {
+    grid-template-columns: repeat(4, 1fr); /* 4 columnas en desktop */
+  }
+}
+@media (max-width: 768px) {
+  .delorean-section {
+    height: 350px; /* Altura reducida pero suficiente */
+  }
+  h1{
+    font-size: 1.5rem;
+  }
+  .delorean-background {
+    background-size: cover; /* Forzamos que llene el espacio */
+    background-position: top center; /* Alineamos la parte superior del auto */
+    width: 352px;
+    height: 204px;
+  }
+
+  .delorean-card {
+    width: 60%; /* Ocupa casi todo el ancho */
+    right: 80%;
+    top: 35%; /* Bajamos la tarjeta para dar espacio al auto */
+    padding: 1rem;
+  }
+
+  .delorean-card h2 {
+    font-size: 1.2rem; /* Texto más pequeño */
+  }
+}
+/* --- Variables de color (opcional) --- */
+:root {
+  --primary: #2c3e50;
+  --secondary: #e74c3c;
+  --text: #333;
+  --background: #f9f9f9;
+}
+/* Contenedor padre para upgrades y reviews */
+.features-container {
+  display: grid;
+  grid-template-columns: 1fr; /* 1 columna en móvil */
+  gap: 2rem;
+  margin: 3rem 0;
+}
+
+/* Desktop: 2 columnas */
+@media (min-width: 768px) {
+  .features-container {
+    grid-template-columns: 1fr 1fr; /* 2 columnas */
+  }
+}
+
+/* Ajustes para las secciones hijas */
+.upgrades, .reviews {
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos existentes para upgrades-grid y review-list (se mantienen) */
+.upgrade-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 columnas para los items */
+  gap: 1rem;
+}
+
+.review-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.review-list li {
+  background-color: #f8f9fa;
+  margin: 0.5rem 0;
+  padding: 0.8rem;
+  border-radius: 4px;
+}
+
+/* ----- Footer Mobile-First ----- */
+.site-footer {
+    background-color: #2c3e50; /* Coherencia con navbar */
+    color: #ecf0f1;
+    padding: 2rem 1rem;
+    font-size: 0.9rem;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-section {
+    margin-bottom: 1.5rem;
+}
+
+.footer-title {
+    color: #fff;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.footer-subtitle {
+    color: #fbc934; /* Toque de color branding */
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+    border-bottom: 1px solid #34495e;
+    padding-bottom: 0.3rem;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-links a {
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-links a:hover {
+    color: #e74c3c;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 1.5rem;
+    margin-top: 1.5rem;
+    border-top: 1px solid #34495e;
+}
+
+.copyright {
+    margin: 0;
+    color: #ffffff;
+}
+
+/* ----- Desktop (2 columnas) ----- */
+@media (min-width: 768px) {
+    .footer-content {
+        grid-template-columns: repeat(3, 1fr); /* 3 columnas */
+    }
+}

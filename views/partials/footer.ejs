@@ -1,5 +1,28 @@
 <% const d = new Date()
 let year = d.getFullYear() %>
-<footer>
-  <p class="copyright">& copy ; <%= year %>, CSE 340 App</p>
+<footer class="site-footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h3 class="footer-title">CSE Motors</h3>
+            <p class="footer-text">Driving innovation since 2023</p>
+        </div>
+        <div class="footer-section">
+            <h4 class="footer-subtitle">Quick Links</h4>
+            <ul class="footer-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/inventory">Inventory</a></li>
+                <li><a href="/contact">Contact</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4 class="footer-subtitle">Legal</h4>
+            <ul class="footer-links">
+                <li><a href="/privacy">Privacy Policy</a></li>
+                <li><a href="/terms">Terms of Service</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p class="copyright">©️ <%= year %>, CSE 340 App</p>
+    </div>
 </footer>
