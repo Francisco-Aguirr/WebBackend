@@ -412,3 +412,117 @@ h1, h2, h3, h4 {
     padding: 0.5rem;
   }
 }
+
+/* --- NAVIGATION STYLES --- */
+.navbar {
+  padding: 0.5rem 1rem;
+}
+
+.navbar ul {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  justify-content: center;
+}
+
+.navbar li {
+  margin: 0;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.navbar a:hover,
+.navbar a:focus {
+  background-color: #555;
+}
+
+/* Responsive nav bar */
+@media (max-width: 600px) {
+  .navbar ul {
+    align-items: stretch;
+  }
+
+  .navbar li {
+    width: 100%;
+  }
+
+  .navbar a {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 0.75rem;
+  }
+}
+
+@media (max-width: 375px) {
+  .navbar {
+    padding: 0.5rem;
+  }
+
+  .navbar a {
+    font-size: 0.9rem;
+    padding: 0.6rem;
+  }
+}
+
+
+/* Inventory display grid */
+#inv-display {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 1rem;
+  list-style: none;
+}
+
+/* Individual vehicle card */
+#inv-display li {
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  width: 300px; /* Fija un ancho consistente */
+  max-width: 100%;
+  transition: transform 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#inv-display li:hover {
+  transform: scale(1.02);
+}
+
+/* Imagen del vehículo */
+#inv-display img {
+  width: 100%;
+  height: 200px; /* Fijamos la altura */
+  object-fit: cover; /* Evita estiramiento */
+  border-radius: 6px;
+}
+
+/* Contenedor de nombre y precio */
+.namePrice {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.namePrice h2 {
+  font-size: 1.2rem;
+  margin: 0.5rem 0;
+}
+
+.namePrice span {
+  color: #009578;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
