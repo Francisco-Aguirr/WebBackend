@@ -1,0 +1,14 @@
+
+
+<main class="container vehicle-detail-view">
+  
+  <% if (typeof detailHTML !== 'undefined') { %>
+    <%- detailHTML %>
+  <% } else { %>
+    <div class="alert alert-info">
+      <h2>Información no disponible</h2>
+      <p>No pudimos cargar los detalles del vehículo en este momento.</p>
+      <a href="/" class="btn btn-primary">Volver al inicio</a>
+    </div>
+  <% } %>
+</main>

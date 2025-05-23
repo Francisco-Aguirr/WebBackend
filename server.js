@@ -55,6 +55,28 @@ app.use(async (err, req, res, next) => {
   })
 })
 
+// blobal error handler
+app.use(async (err, req, res, next) => {
+  let nav = await utilities.getNav();
+  console.error(`Error at: "${req.originalUrl}": ${err.message}`);
+  
+  if (err.status === 404) {
+    res.status(404).render("errors/error", {
+      title: "404 Not Found",
+      nav,
+      message: err.message,
+      status: err.status,
+    });
+  } else {
+    res.status(500).render("errors/error", {
+      title: "500 Server Error",
+      nav,
+      message: "Lo sentimos, ocurrió un error en el servidor",
+      status: 500,
+    });
+  }
+});
+
 /* ***********************
  * Local Server Information
  * Values from .env (environment) file

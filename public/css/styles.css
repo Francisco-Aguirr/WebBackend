@@ -526,3 +526,330 @@ h1, h2, h3, h4 {
   font-weight: bold;
   font-size: 1.1rem;
 }
+
+/* Estilos generales para la página de detalles */
+.vehicle-detail-view {
+  padding: 2rem 0;
+  min-height: 80vh;
+}
+
+/* Contenedor principal */
+.vehicle-detail-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3rem;
+  margin-top: 2rem;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  overflow: hidden;
+}
+
+/* Sección de la imagen */
+.vehicle-image {
+  flex: 1 1 50%;
+  min-width: 300px;
+  position: relative;
+}
+
+.vehicle-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.vehicle-image img:hover {
+  transform: scale(1.02);
+}
+
+/* Sección de información */
+.vehicle-info {
+  flex: 1 1 40%;
+  min-width: 300px;
+}
+
+.vehicle-info h2 {
+  font-size: 2.2rem;
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  border-bottom: 2px solid #f1f1f1;
+  padding-bottom: 0.5rem;
+}
+
+/* Precio */
+.price {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #e74c3c;
+  margin: 1.5rem 0;
+  background: #f9f9f9;
+  padding: 0.8rem;
+  border-radius: 5px;
+  display: inline-block;
+}
+
+/* Kilometraje */
+.mileage {
+  font-size: 1.2rem;
+  color: #7f8c8d;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.mileage::before {
+  content: "🛣️";
+  font-size: 1.4rem;
+}
+
+/* Descripción */
+.description {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #34495e;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-left: 4px solid #3498db;
+  border-radius: 0 5px 5px 0;
+}
+
+/* Detalles adicionales */
+.details {
+  background: #f5f5f5;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-top: 2rem;
+}
+
+.details p {
+  margin: 0.8rem 0;
+  font-size: 1rem;
+  color: #555;
+  display: flex;
+  align-items: center;
+}
+
+.details p strong {
+  color: #2c3e50;
+  min-width: 100px;
+  display: inline-block;
+}
+
+/* Iconos para los detalles */
+.details p::before {
+  margin-right: 10px;
+  font-size: 1.2rem;
+}
+
+.details p:nth-child(1)::before { content: "🎨"; } /* Color */
+.details p:nth-child(2)::before { content: "🔢"; } /* Stock */
+.details p:nth-child(3)::before { content: "🏷️"; } /* Categoría */
+
+/* Botón de acción */
+.action-button {
+  display: inline-block;
+  background: #3498db;
+  color: white;
+  padding: 12px 25px;
+  margin-top: 1.5rem;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  box-shadow: 0 3px 10px rgba(52, 152, 219, 0.3);
+}
+
+.action-button:hover {
+  background: #2980b9;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+}
+
+/* Estilos responsive */
+@media (max-width: 992px) {
+  .vehicle-detail-container {
+    flex-direction: column;
+  }
+  
+  .vehicle-image, 
+  .vehicle-info {
+    flex: 1 1 100%;
+  }
+  
+  .vehicle-info h2 {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .vehicle-detail-container {
+    padding: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .vehicle-info h2 {
+    font-size: 1.5rem;
+  }
+  
+  .price {
+    font-size: 1.5rem;
+  }
+  
+  .details p {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .details p strong {
+    margin-bottom: 5px;
+  }
+}
+
+/* Efectos especiales */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.vehicle-detail-container {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+/* Badge para destacar información */
+.badge {
+  display: inline-block;
+  padding: 0.35em 0.65em;
+  font-size: 0.75em;
+  font-weight: 700;
+  line-height: 1;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25rem;
+  background-color: #2ecc71;
+  margin-left: 0.5rem;
+}
+
+/* intentional error 500 */
+.error-test-container {
+  text-align: center;
+  margin-top: 1rem;
+  padding: 0.5rem;
+}
+
+.error-test-link {
+  color: #e74c3c;
+  text-decoration: none;
+  font-size: 0.8rem;
+}
+
+.error-test-link:hover {
+  text-decoration: underline;
+}
+
+/* general error handler styles */
+/* Contenedor principal del error divertido */
+.fun-error {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 2rem;
+  text-align: center;
+  background-color: #fff9f9;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(255, 100, 100, 0.1);
+  border: 1px solid #ffebeb;
+  overflow: hidden; /* Previene desbordamientos */
+}
+
+/* Estilo para la imagen */
+.fun-error img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  display: block; /* Elimina espacio extra debajo de la imagen */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Texto del error */
+.fun-error p {
+  font-size: 1.2rem;
+  color: #d33;
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.fun-error p:first-of-type {
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+/* Enlace para volver */
+.fun-error a {
+  display: inline-block;
+  padding: 0.8rem 1.5rem;
+  background-color: #ff6b6b;
+  color: white;
+  text-decoration: none;
+  border-radius: 50px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+  border: 2px solid #ff5252;
+}
+
+.fun-error a:hover {
+  background-color: #ff5252;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 82, 82, 0.3);
+}
+
+/* Efecto de animación */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+.fun-error:hover img {
+  animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .fun-error {
+    padding: 1.5rem;
+    margin: 1rem;
+  }
+  
+  .fun-error p:first-of-type {
+    font-size: 1.2rem;
+  }
+  
+  .fun-error a {
+    padding: 0.6rem 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .fun-error {
+    padding: 1rem;
+  }
+  
+  .fun-error p {
+    font-size: 1rem;
+  }
+}
