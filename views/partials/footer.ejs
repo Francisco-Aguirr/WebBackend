@@ -25,15 +25,15 @@ let year = d.getFullYear() %>
     <div class="footer-bottom">
         <p class="copyright">©️ <%= year %>, CSE 340 App</p>
     </div>
-     <% if (process.env.NODE_ENV === 'development') { %>
-    <div class="error-test-container">
-      <small>
-        <a href="/inv/trigger-error" 
-           onclick="return confirm('¿Estás seguro que deseas generar un error de prueba?');"
-           class="error-test-link">
-          [Prueba de Error 500]
-        </a>
-      </small>
-    </div>
-  <% } %>
+     <% if (process.env.SHOW_ERROR_TEST === 'true') { %>
+  <div class="error-test-container">
+    <small>
+      <a href="/inv/trigger-error" 
+         onclick="return confirm('⚠️ ADVERTENCIA: Esto generará un error intencional\n\n¿Continuar?');"
+         class="error-test-link">
+        [Prueba de Error 500]
+      </a>
+    </small>
+  </div>
+<% } %>
 </footer>
