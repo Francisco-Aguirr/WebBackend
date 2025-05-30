@@ -21,5 +21,14 @@ router.post('/register',
   regValidate.checkRegData,
   utilities.handleErrors(accountController.registerAccount))
 
+
+// Process the login attempt (temporal)
+router.post(
+  "/login",
+  regValidate.loginRules(),
+  regValidate.checkLoginData,
+  utilities.handleErrors(accountController.loginAccount)
+)
+
 // Exportar las rutas para usarlas en otros archivos
 module.exports = router;

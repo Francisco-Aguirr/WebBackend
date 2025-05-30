@@ -1,22 +1,40 @@
-
-
 <div class="login-container">
   <h1><%= title %></h1>
 
   <!-- Flash message (if any) -->
   <%- messages() %>
+<!-- Server-side validation errors -->
+<% if (typeof errors !== 'undefined' && errors.length > 0) { %>
+  <div class="error-container">
+    <ul>
+      <% errors.forEach(error => { %>
+        <li><%= error.msg %></li>
+      <% }) %>
+    </ul>
+  </div>
+<% } %>
 
   <form action="/account/login" method="POST" class="login-form">
     <label for="email">Email Address</label>
-    <input type="email" id="email" name="account_email" required>
-<label for="password">Password</label>
+    <input
+      type="email"
+      id="email"
+      name="account_email"
+      required
+      value="<%= locals.account_email %>"
+    />
+
+    <label for="password">Password</label>
     <div class="password-wrapper">
-      
-      <input type="password" id="password" name="account_password" required 
-             pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[\W_]).{12,}$"
-             title="Minimum 12 characters, 1 uppercase, 1 number, 1 special character.">
+      <input
+        type="password"
+        id="password"
+        name="account_password"
+        required
+        pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[\W_]).{12,}$"
+        title="Minimum 12 characters, 1 uppercase, 1 number, 1 special character."
+      />
     </div>
-    
 
     <button type="submit">Log In</button>
   </form>
@@ -26,4 +44,3 @@
     <a href="/account/register">Create one here</a>.
   </p>
 </div>
-
