@@ -15,6 +15,7 @@ const express = require("express")
 const router = new express.Router() 
 const invController = require("../controllers/invController")
 const utilities = require("../utilities/")
+const invValidate = require("../utilities/inventory-validation")
 
 // Route to build inventory by classification view
 router.get("/type/:classificationId", 
@@ -26,5 +27,32 @@ router.get("/detail/:inv_id",
 // Nueva ruta para generar error 500 (Task 3)
 router.get("/trigger-error", 
   utilities.handleErrors(invController.triggerIntentionalError));
+
+//route management view
+router.get("/", invController.buildManagementView)
+
+// ------------ route to get classification
+router.get("/add-classification", invController.buildAddClassification)
+
+// Ruta POST con validación
+router.post(
+  "/add-classification",
+  invValidate.classificationRules(),
+  invValidate.checkClassificationData,
+  invController.registerClassification
+)
+
+// -------------
+
+router.get("/add-inventory", invController.buildAddInventory);
+
+// Ruta POST para registrar nuevo vehículo
+router.post(
+  "/add-inventory",
+  invValidate.inventoryRules(),
+  invValidate.checkInventoryData,
+  utilities.handleErrors(invController.registerInventory)
+);
+
 
 module.exports = router;

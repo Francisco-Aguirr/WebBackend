@@ -105,6 +105,25 @@ Util.buildVehicleDetail = function(vehicle) {
   `;
 }
 
+
+/* ****************************************
+ * Build a <select> element with classifications
+ * ************************************** */
+Util.buildClassificationList = async function (selectedId = null) {
+  let data = await invModel.getClassifications()
+  let list = `<select id="classification_id" name="classification_id" required>`
+  list += `<option value="">Choose a classification</option>`
+  data.rows.forEach((row) => {
+    let selected = selectedId == row.classification_id ? "selected" : ""
+    list += `<option value="${row.classification_id}" ${selected}>${row.classification_name}</option>`
+  })
+  list += "</select>"
+  return list
+}
+
+
+
+
 /* ****************************************
  * Helper function to format as USD
  * ************************************** */
@@ -114,5 +133,6 @@ Util.formatAsUSD = function(number) {
     currency: 'USD'
   }).format(number);
 }
+
 
 module.exports = Util;

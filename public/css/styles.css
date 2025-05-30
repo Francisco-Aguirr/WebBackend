@@ -996,3 +996,106 @@ input, button {
 }
 
 
+/* Specific styles for add-classification form */
+.add-classification-form {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #f4f8fb;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e0e0e0;
+}
+
+.add-classification-form label {
+  font-weight: 600;
+  margin-bottom: 0.25em;
+}
+
+.add-classification-form input[type="text"] {
+  width: 100%;
+  padding: 0.75em;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.add-classification-form input[type="text"]:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.add-classification-form button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  font-weight: bold;
+  font-size: 1rem;
+  padding: 0.75em;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.add-classification-form button:hover {
+  background-color: #0056b3;
+}
+
+.add-classification-form .notice {
+  background-color: #ffecec;
+  color: #a33;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  border: 1px solid #a33;
+}
+
+
+/* add new vehicle form */
+.add-inventory-form {
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #f9fbff;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
+  border: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.add-inventory-form label {
+  font-weight: 600;
+}
+
+.add-inventory-form input,
+.add-inventory-form textarea,
+.add-inventory-form select,
+.add-inventory-form button {
+  font-size: 1rem;
+  padding: 0.6em;
+  border-radius: 6px;
+}
+
+.add-inventory-form input,
+.add-inventory-form textarea,
+.add-inventory-form select {
+  border: 1px solid #ccc;
+  width: 100%;
+}
+
+.add-inventory-form button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.add-inventory-form button:hover {
+  background-color: #0056b3;
+}
