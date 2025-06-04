@@ -10,9 +10,9 @@
   </div>
 <% } %>
 
-<form method="post" action="/inv/update" class="edit-inventory-form">
+<form method="post" action="/inv/update" class="edit-inventory-form" id="updateForm">
   <!-- Campo oculto para el ID -->
-  <input type="hidden" name="inv_id" value="<%= inv_id %>">
+  
 
   <label for="classification_id">Classification</label>
   <%- classificationSelect %>
@@ -44,5 +44,12 @@
   <label for="inv_color">Color</label>
   <input type="text" id="inv_color" name="inv_color" required value="<%= inv_color %>">
 
-  <button type="submit">Update Vehicle</button>
+
+  <input type="hidden" name="inv_id"
+  <% if(locals.inv_id) { %> value="<%= locals.inv_id %>"
+  <% } %>>
+  <button type="submit" disabled>Update Vehicle</button>
+  
 </form>
+
+<script src="/js/inv-update.js" defer></script>

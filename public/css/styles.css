@@ -1237,3 +1237,44 @@ input, button {
   background-size: 1rem;
   padding-right: 2rem;
 }
+
+/* Estilos para la vista de confirmación de eliminación */
+.warning {
+  color: #dc3545;
+  font-weight: bold;
+  margin: 1rem 0;
+  padding: 1rem;
+  background-color: #ffe9ea;
+  border: 1px solid #f5c6cb;
+  border-radius: 4px;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+  border-color: #bd2130;
+}
+
+.delete-form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #495057;
+}
+
+.delete-form-control {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #f8f9fa;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  color: #495057;
+}

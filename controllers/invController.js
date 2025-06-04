@@ -275,5 +275,118 @@ invCont.buildEditInventoryView = async function (req, res, next) {
   });
 };
 
+/* ***************************
+ *  Update Inventory
+ * ************************** */
+invCont.updateInventory = async function (req, res, next) {
+  const {
+    inv_id,
+    inv_make,
+    inv_model,
+    inv_year,
+    inv_description,
+    inv_image,
+    inv_thumbnail,
+    inv_price,
+    inv_miles,
+    inv_color,
+    classification_id
+  } = req.body;
 
+  try {
+    const updateResult = await invModel.updateInventory(
+      inv_id,
+      inv_make,
+      inv_model,
+      inv_description,
+      inv_image,
+      inv_thumbnail,
+      inv_price,
+      inv_year,
+      inv_miles,
+      inv_color,
+      classification_id
+    );
+
+    if (updateResult) {
+      req.flash("notice", "The vehicle was successfully updated.");
+      res.redirect("/inv/");
+    } else {
+      throw new Error("Update failed");
+    }
+  } catch (error) {
+    req.flash("error", "Sorry, the update failed.");
+    res.redirect(`/inv/edit/${inv_id}`);
+  }
+};
+
+/* ***************************
+ *  Build delete confirmation view
+ * ************************** */
+// Versión mejorada de buildDeleteConfirmation
+invCont.buildDeleteConfirmation = async function (req, res, next) {
+  try {
+    // Debug: Verifica que el ID llegue correctamente
+    console.log("Parámetro recibido:", req.params.inv_id);
+    
+    const inv_id = parseInt(req.params.inv_id);
+    if (isNaN(inv_id)) {
+      throw new Error("ID de inventario no válido");
+    }
+
+    // Debug: Verifica conexión con el modelo
+    console.log("Buscando vehículo con ID:", inv_id);
+    const itemData = await invModel.getVehicleById(inv_id);
+    
+    if (!itemData) {
+      throw new Error("Vehículo no encontrado");
+    }
+
+    // Debug: Verifica datos obtenidos
+    console.log("Datos del vehículo:", {
+      make: itemData.inv_make,
+      model: itemData.inv_model,
+      year: itemData.inv_year
+    });
+
+    res.render("inventory/delete-confirm", {
+      title: "Confirmar Eliminación",
+      nav: await utilities.getNav(),
+      ...itemData, // Spread operator para pasar todas las propiedades
+      errors: null
+    });
+
+  } catch (error) {
+    console.error("Error en buildDeleteConfirmation:", error.message);
+    
+    // Renderiza una vista de error específica
+    res.status(500).render("errors/error", {
+      title: "Error",
+      message: `No se pudo cargar la confirmación: ${error.message}`,
+      nav: await utilities.getNav()
+    });
+  }
+};
+
+/* ***************************
+ *  Process Inventory Deletion
+ * ************************** */
+invCont.deleteInventoryItem = async function (req, res, next) {
+  const inv_id = parseInt(req.body.inv_id);
+
+  try {
+    const deleteResult = await invModel.deleteInventoryItem(inv_id);
+
+    if (deleteResult.rowCount === 1) {
+      req.flash("notice", "The vehicle was successfully deleted.");
+      res.redirect("/inv/");
+    } else {
+      req.flash("error", "Sorry, the delete failed.");
+      res.redirect(`/inv/delete/${inv_id}`);
+    }
+  } catch (error) {
+    req.flash("error", "Sorry, an error occurred during deletion.");
+    res.redirect(`/inv/delete/${inv_id}`);
+  }
+};
 module.exports = invCont;
