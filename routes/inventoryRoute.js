@@ -62,4 +62,13 @@ router.get(
 )
 
 
+/* ***************************
+ * Route to build edit inventory view
+ * URL: /inv/edit/:inv_id
+ * ************************** */
+router.get(
+  "/edit/:inv_id",
+  utilities.handleErrors(invController.buildEditInventoryView)
+);
+
 module.exports = router;

@@ -237,5 +237,43 @@ invCont.getInventoryJSON = async (req, res, next) => {
   }
 }
 
+/* ***************************
+ * Build edit inventory view
+ * ************************** */
+invCont.buildEditInventoryView = async function (req, res, next) {
+  const inv_id = parseInt(req.params.inv_id); // Convertir a entero
+  
+  let nav = await utilities.getNav(); // Obtener navegación
+  
+  // Obtener datos del vehículo
+  const itemData = await invModel.getVehicleById(inv_id); 
+  
+  // Construir dropdown de clasificaciones con la selección actual
+  const classificationSelect = await utilities.buildClassificationList(itemData.classification_id);
+  
+  // Nombre para título (ej: "Edit Ford F-150")
+  const itemName = `${itemData.inv_make} ${itemData.inv_model}`;
+
+  // Renderizar vista con datos
+  res.render("./inventory/edit-inventory", {
+    title: "Edit " + itemName,
+    nav,
+    classificationSelect, // Dropdown con clasificación actual seleccionada
+    errors: null,
+    // Todos los campos del vehículo:
+    inv_id: itemData.inv_id,
+    inv_make: itemData.inv_make,
+    inv_model: itemData.inv_model,
+    inv_year: itemData.inv_year,
+    inv_description: itemData.inv_description,
+    inv_image: itemData.inv_image,
+    inv_thumbnail: itemData.inv_thumbnail,
+    inv_price: itemData.inv_price,
+    inv_miles: itemData.inv_miles,
+    inv_color: itemData.inv_color,
+    classification_id: itemData.classification_id
+  });
+};
+
 
 module.exports = invCont;
