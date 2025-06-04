@@ -22,13 +22,21 @@ router.post('/register',
   utilities.handleErrors(accountController.registerAccount))
 
 
-// Process the login attempt (temporal)
+// Process the login request
 router.post(
   "/login",
   regValidate.loginRules(),
   regValidate.checkLoginData,
   utilities.handleErrors(accountController.loginAccount)
 )
+
+// Main account management view (after login)
+router.get(
+  "/",
+  utilities.checkJWTToken, // Middleware que asegura que el usuario esté autenticado
+  utilities.handleErrors(accountController.buildAccountManagement)
+)
+
 
 // Exportar las rutas para usarlas en otros archivos
 module.exports = router;
