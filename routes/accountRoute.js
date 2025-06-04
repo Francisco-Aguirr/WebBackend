@@ -34,9 +34,10 @@ router.post(
 router.get(
   "/",
   utilities.checkJWTToken, // Middleware que asegura que el usuario esté autenticado
+  utilities.checkLogin,
   utilities.handleErrors(accountController.buildAccountManagement)
 )
 
 
-// Exportar las rutas para usarlas en otros archivos
+// Exporting paths for use in other files
 module.exports = router;
