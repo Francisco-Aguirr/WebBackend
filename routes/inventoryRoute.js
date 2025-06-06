@@ -12,93 +12,121 @@
 // module.exports = router;
 
 const express = require("express")
-const router = new express.Router() 
+const router = new express.Router()
 const invController = require("../controllers/invController")
 const utilities = require("../utilities/")
 const invValidate = require("../utilities/inventory-validation")
 
+// ==========================
+// PUBLIC ROUTES (no restricción)
+// ==========================
 
-
-// Route to build inventory by classification view
-router.get("/type/:classificationId", 
-  utilities.handleErrors(invController.buildByClassificationId));
-
-router.get("/detail/:inv_id", 
-  utilities.handleErrors(invController.buildByInvId));
-
-// Nueva ruta para generar error 500 (Task 3)
-router.get("/trigger-error", 
-  utilities.handleErrors(invController.triggerIntentionalError));
-
-//route management view
-router.get("/", invController.buildManagementView)
-
-// ------------ route to get classification
-router.get("/add-classification", invController.buildAddClassification)
-
-// Ruta POST con validación
-router.post(
-  "/add-classification",
-  invValidate.classificationRules(),
-  invValidate.checkClassificationData,
-  invController.registerClassification
+// View inventory by classification
+router.get("/type/:classificationId",
+  utilities.handleErrors(invController.buildByClassificationId)
 )
 
-// -------------
+// View vehicle detail
+router.get("/detail/:inv_id",
+  utilities.handleErrors(invController.buildByInvId)
+)
 
-router.get("/add-inventory", invController.buildAddInventory);
+// Trigger intentional error
+router.get("/trigger-error",
+  utilities.handleErrors(invController.triggerIntentionalError)
+)
 
-// Ruta POST para registrar nuevo vehículo
-router.post(
-  "/add-inventory",
-  invValidate.inventoryRules(),
-  invValidate.checkInventoryData,
-  utilities.handleErrors(invController.registerInventory)
-);
-
-
-// Path returning inventory by classification_id in JSON format
+// Get inventory list in JSON (used by dropdown)
 router.get(
   "/getInventory/:classification_id",
   utilities.handleErrors(invController.getInventoryJSON)
 )
 
 
-/* ***************************
- * Route to build edit inventory view
- * URL: /inv/edit/:inv_id
- * ************************** */
+// ==========================
+// PROTECTED ROUTES (Employee/Admin only)
+// ==========================
+
+// Inventory Management view
+router.get("/",
+  utilities.checkLogin,
+  utilities.checkAccountType, // restrict access
+  invController.buildManagementView
+)
+
+// Show add classification form
+router.get("/add-classification",
+  utilities.checkLogin,
+  utilities.checkAccountType,
+  invController.buildAddClassification
+)
+
+// Process new classification
+router.post(
+  "/add-classification",
+  utilities.checkLogin,
+  utilities.checkAccountType,
+  invValidate.classificationRules(),
+  invValidate.checkClassificationData,
+  invController.registerClassification
+)
+
+// Show add inventory form
+router.get("/add-inventory",
+  utilities.checkLogin,
+  utilities.checkAccountType,
+  invController.buildAddInventory
+)
+
+// Process new inventory
+router.post(
+  "/add-inventory",
+  utilities.checkLogin,
+  utilities.checkAccountType,
+  invValidate.inventoryRules(),
+  invValidate.checkInventoryData,
+  utilities.handleErrors(invController.registerInventory)
+)
+
+// Build edit inventory view
 router.get(
   "/edit/:inv_id",
+  utilities.checkLogin,
+  utilities.checkAccountType,
   utilities.handleErrors(invController.buildEditInventoryView)
-);
+)
 
+// Process inventory update
 router.post(
   "/update",
-  invValidate.newInventoryRules(), // Usa invValidate en lugar de validate
-  invValidate.checkUpdateData,     // Accede a checkUpdateData a través de invValidate
+  utilities.checkLogin,
+  utilities.checkAccountType,
+  invValidate.newInventoryRules(),
+  invValidate.checkUpdateData,
   utilities.handleErrors(invController.updateInventory)
-);
+)
 
-// Ruta para mostrar la vista de confirmación de eliminación (GET)
-// Versión corregida
-router.get("/delete/:inv_id", 
+// Show delete confirmation view
+router.get("/delete/:inv_id",
+  utilities.checkLogin,
+  utilities.checkAccountType,
   utilities.handleErrors(async (req, res, next) => {
     try {
-      console.log(`Delete confirmation requested for ID: ${req.params.inv_id}`);
-      await invController.buildDeleteConfirmation(req, res, next);
+      console.log(`Delete confirmation requested for ID: ${req.params.inv_id}`)
+      await invController.buildDeleteConfirmation(req, res, next)
     } catch (error) {
-      console.error("Route handler error:", error);
-      next(error);
+      console.error("Route handler error:", error)
+      next(error)
     }
   })
-);
+)
 
-// Ruta para procesar la eliminación (POST)
+// Process deletion
 router.post(
   "/delete",
+  utilities.checkLogin,
+  utilities.checkAccountType,
   utilities.handleErrors(invController.deleteInventoryItem)
-);
+)
 
-
-module.exports = router;
+module.exports = router

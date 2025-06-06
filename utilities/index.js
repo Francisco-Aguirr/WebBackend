@@ -173,4 +173,19 @@ Util.checkJWTToken = (req, res, next) => {
   }
  }
 
+/**
+ * Middleware that allows access for employees and admins.
+ */
+Util.checkAccountType = function (req, res, next) {
+  if (res.locals.accountData && 
+     (res.locals.accountData.account_type === 'Employee' || res.locals.accountData.account_type === 'Admin')) {
+    return next()
+  } else {
+    req.flash("notice", "Access denied. You must be an employee or administrator.")
+    return res.redirect("/account/login")
+  }
+}
+
+
+
 module.exports = Util;
