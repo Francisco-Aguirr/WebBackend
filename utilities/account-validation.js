@@ -145,4 +145,78 @@ validate.passwordRules = () => {
   ];
 };
 
+/* **********************************
+*  Update Account Validation Rules
+* ********************************* */
+validate.updateAccountRules = () => {
+  return [
+    body("account_firstname")
+      .trim()
+      .notEmpty()
+      .withMessage("First name is required.")
+      .isLength({ min: 1 })
+      .withMessage("First name must be at least 1 character."),
+
+    body("account_lastname")
+      .trim()
+      .notEmpty()
+      .withMessage("Last name is required.")
+      .isLength({ min: 2 })
+      .withMessage("Last name must be at least 2 characters."),
+
+    body("account_email")
+      .trim()
+      .notEmpty()
+      .withMessage("Email is required.")
+      .isEmail()
+      .withMessage("Must be a valid email.")
+      .custom(async (account_email, { req }) => {
+        const account = await accountModel.getAccountByEmail(account_email);
+        if (account && account.account_id !== parseInt(req.body.account_id)) {
+          throw new Error("Email already exists.");
+        }
+      }),
+  ];
+};
+
+/* **********************************
+*  Password Update Validation Rules
+* ********************************* */
+validate.passwordUpdateRules = () => {
+  return [
+    body("account_password")
+      .trim()
+      .notEmpty()
+      .withMessage("Password is required.")
+      .isStrongPassword({
+        minLength: 12,
+        minUppercase: 1,
+        minNumbers: 1,
+        minSymbols: 1,
+      })
+      .withMessage("Password must be at least 12 characters with 1 uppercase, 1 number, and 1 special character."),
+  ];
+};
+
+/* **********************************
+*  Middleware to Check Update Data
+* ********************************* */
+validate.checkUpdateData = async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav();
+    const accountData = await accountModel.getAccountById(req.body.account_id);
+    return res.render("account/update", {
+      title: "Update Account",
+      nav,
+      errors: errors.array(),
+      accountData: {
+        ...accountData,
+        ...req.body, // Sobrescribe con los datos enviados (para sticky fields)
+      },
+    });
+  }
+  next();
+};
+
 module.exports = validate

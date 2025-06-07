@@ -46,10 +46,14 @@ router.get("/update/:account_id",
 
 router.post("/update", 
   utilities.checkJWTToken, 
+  regValidate.updateAccountRules(),
+  regValidate.checkUpdateData,
   utilities.handleErrors(accountController.updateAccount));
 
 router.post("/update-password", 
   utilities.checkJWTToken, 
+  regValidate.passwordUpdateRules(),
+  regValidate.checkUpdateData,
   utilities.handleErrors(accountController.updatePassword));
 
   // logout routes

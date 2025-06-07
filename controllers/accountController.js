@@ -177,9 +177,9 @@ async function updateAccount(req, res) {
 async function updatePassword(req, res) {
   const { account_id, account_password } = req.body;
   const nav = await utilities.getNav();
-  const hashedPassword = await bcrypt.hash(account_password, 10);
 
   try {
+    const hashedPassword = await bcrypt.hash(account_password, 10);
     await accountModel.updatePassword(account_id, hashedPassword);
     req.flash("notice", "Password updated successfully.");
     res.redirect("/account/");
