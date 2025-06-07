@@ -133,7 +133,74 @@ async function buildAccountManagement(req, res) {
   })
 }
 
+/* ****************************************
+*  Deliver update account view
+* *************************************** */
+async function buildUpdateView(req, res) {
+  const nav = await utilities.getNav();
+  const account_id = parseInt(req.params.account_id);
+  const accountData = await accountModel.getAccountById(account_id);
+
+  res.render("account/update", {
+    title: "Update Account",
+    nav,
+    errors: null,
+    accountData,
+  });
+}
+
+/* ****************************************
+*  Process account update
+* *************************************** */
+async function updateAccount(req, res) {
+  const { account_id, account_firstname, account_lastname, account_email } = req.body;
+  const nav = await utilities.getNav();
+
+  try {
+    await accountModel.updateAccount(account_id, account_firstname, account_lastname, account_email);
+    req.flash("notice", "Account updated successfully.");
+    res.redirect("/account/");
+  } catch (error) {
+    req.flash("notice", "Failed to update account.");
+    res.render("account/update", {
+      title: "Update Account",
+      nav,
+      errors: null,
+      accountData: req.body,
+    });
+  }
+}
+
+/* ****************************************
+*  Process password update
+* *************************************** */
+async function updatePassword(req, res) {
+  const { account_id, account_password } = req.body;
+  const nav = await utilities.getNav();
+  const hashedPassword = await bcrypt.hash(account_password, 10);
+
+  try {
+    await accountModel.updatePassword(account_id, hashedPassword);
+    req.flash("notice", "Password updated successfully.");
+    res.redirect("/account/");
+  } catch (error) {
+    req.flash("notice", "Failed to update password.");
+    res.render("account/update", {
+      title: "Update Account",
+      nav,
+      errors: null,
+      accountData: { account_id },
+    });
+  }
+}
+
+/* ****************************************
+*  Process logout
+* *************************************** */
+function logout(req, res) {
+  res.clearCookie("jwt");
+  res.redirect("/");
+}
 
 
-
-module.exports = { buildLogin, buildRegister, registerAccount, loginAccount, buildAccountManagement }
+module.exports = { buildLogin, buildRegister, registerAccount, loginAccount, buildAccountManagement, updatePassword, updateAccount, buildUpdateView, logout }

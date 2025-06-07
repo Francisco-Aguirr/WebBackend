@@ -39,5 +39,22 @@ router.get(
 )
 
 
+// Update account routes
+router.get("/update/:account_id", 
+  utilities.checkJWTToken, 
+  utilities.handleErrors(accountController.buildUpdateView));
+
+router.post("/update", 
+  utilities.checkJWTToken, 
+  utilities.handleErrors(accountController.updateAccount));
+
+router.post("/update-password", 
+  utilities.checkJWTToken, 
+  utilities.handleErrors(accountController.updatePassword));
+
+  // logout routes
+router.get("/logout", 
+  utilities.handleErrors(accountController.logout));
+
 // Exporting paths for use in other files
 module.exports = router;

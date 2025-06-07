@@ -119,5 +119,30 @@ validate.checkLoginData = async (req, res, next) => {
 }
 
 
+/* **********************************
+*  Update Data Validation Rules
+* ********************************* */
+validate.updateRules = () => {
+  return [
+    body("account_firstname").trim().notEmpty(),
+    body("account_lastname").trim().notEmpty(),
+    body("account_email").trim().isEmail(),
+  ];
+};
+
+/* **********************************
+*  Password Validation Rules
+* ********************************* */
+validate.passwordRules = () => {
+  return [
+    body("account_password")
+      .isStrongPassword({
+        minLength: 12,
+        minUppercase: 1,
+        minNumbers: 1,
+        minSymbols: 1,
+      })
+  ];
+};
 
 module.exports = validate
