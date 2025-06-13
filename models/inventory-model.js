@@ -148,5 +148,49 @@ async function deleteInventoryItem(inv_id) {
   }
 }
 
+/* ***************************
+ *  Search vehicles by multiple criteria
+ * ************************** */
+async function searchVehicles(filters) {
+  try {
+    let query = `
+      SELECT i.*, c.classification_name 
+      FROM inventory i
+      LEFT JOIN classification c ON i.classification_id = c.classification_id
+      WHERE 1=1
+    `;
+    const params = [];
 
-module.exports = {getClassifications, deleteInventoryItem, updateInventory, getInventoryByClassificationId, getVehicleById, addClassification, addInventory};
+    // Filtros dinámicos
+    if (filters.classification_id) {
+      query += ` AND i.classification_id = $${params.length + 1}`;
+      params.push(filters.classification_id);
+    }
+    if (filters.inv_make) {
+      query += ` AND i.inv_make ILIKE $${params.length + 1}`;
+      params.push(`%${filters.inv_make}%`);
+    }
+    if (filters.min_price) {
+      query += ` AND i.inv_price >= $${params.length + 1}`;
+      params.push(filters.min_price);
+    }
+    if (filters.max_price) {
+      query += ` AND i.inv_price <= $${params.length + 1}`;
+      params.push(filters.max_price);
+    }
+    if (filters.min_year) {
+      query += ` AND i.inv_year >= $${params.length + 1}`;
+      params.push(filters.min_year);
+    }
+
+    query += " ORDER BY i.inv_price DESC";
+    const result = await pool.query(query, params);
+    return result.rows;
+  } catch (error) {
+    console.error("Error en searchVehicles:", error);
+    return [];
+  }
+}
+
+
+module.exports = {getClassifications, searchVehicles, deleteInventoryItem, updateInventory, getInventoryByClassificationId, getVehicleById, addClassification, addInventory};

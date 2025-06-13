@@ -161,7 +161,13 @@ const checkUpdateData = async (req, res, next) => {
   next();
 };
 
-
+const searchRules = () => {
+  return [
+    body("min_price").optional().isFloat({ min: 0 }),
+    body("max_price").optional().isFloat({ min: 0 }),
+    body("min_year").optional().isInt({ min: 1900, max: new Date().getFullYear() })
+  ];
+};
 
 
 module.exports = {
@@ -170,5 +176,6 @@ module.exports = {
   inventoryRules,
   checkInventoryData,
   checkUpdateData,
-  newInventoryRules
+  newInventoryRules,
+  searchRules
 }

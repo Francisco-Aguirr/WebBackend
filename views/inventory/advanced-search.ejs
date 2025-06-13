@@ -1,0 +1,76 @@
+<div class="container">
+  <h1>Advanced Search</h1>
+  
+  <!-- Formulario de Búsqueda -->
+  <form action="/inv/search" method="POST" class="mb-4">
+    <div class="row g-3">
+      <!-- Tipo de Vehículo -->
+      <div class="col-md-3">
+        <label class="form-label">Tipe</label>
+        <select name="classification_id" class="form-select">
+          <option value="">All</option>
+          <% if (locals.classifications) { %>
+            <% classifications.forEach(classification => { %>
+              <option value="<%= classification.classification_id %>" 
+                <%= (locals.formData && formData.classification_id == classification.classification_id) ? 'selected' : '' %>>
+                <%= classification.classification_name %>
+              </option>
+            <% }); %>
+          <% } %>
+        </select>
+      </div>
+
+      <!-- Marca -->
+      <div class="col-md-3">
+        <label class="form-label">Make</label>
+        <input type="text" name="inv_make" class="form-control" 
+          value="<%= (locals.formData && formData.inv_make) ? formData.inv_make : '' %>">
+      </div>
+
+      <!-- Rango de Precio -->
+      <div class="col-md-3">
+        <label class="form-label">Min Price</label>
+        <input type="number" name="min_price" class="form-control" 
+          value="<%= (locals.formData && formData.min_price) ? formData.min_price : '' %>">
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">Max Price</label>
+        <input type="number" name="max_price" class="form-control" 
+          value="<%= (locals.formData && formData.max_price) ? formData.max_price : '' %>">
+      </div>
+
+      <!-- Año Mínimo -->
+      <div class="col-md-3">
+        <label class="form-label">Min Year</label>
+        <input type="number" name="min_year" class="form-control" 
+          value="<%= (locals.formData && formData.min_year) ? formData.min_year : '' %>">
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3">Search</button>
+  </form>
+
+  <!-- Resultados -->
+<% if (locals.results) { %>
+  <div class="vehicle-results">
+    <% if (results.length > 0) { %>
+      <% results.forEach(vehicle => { %>
+        <div class="vehicle-card">
+          <% if (vehicle.inv_thumbnail) { %>
+            <img src="<%= vehicle.inv_thumbnail %>" alt="<%= vehicle.inv_make %> <%= vehicle.inv_model %>" class="vehicle-image">
+          <% } %>
+          <div class="vehicle-info">
+            <h3 class="vehicle-title"><%= vehicle.inv_year %> <%= vehicle.inv_make %> <%= vehicle.inv_model %></h3>
+            <p class="vehicle-price">
+              <%= typeof utilities !== 'undefined' ? utilities.formatAsUSD(vehicle.inv_price) : new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(vehicle.inv_price) %>
+            </p>
+            <a href="/inv/detail/<%= vehicle.inv_id %>" class="details-btn">See Details</a>
+          </div>
+        </div>
+      <% }); %>
+    <% } else { %>
+      <div class="alert alert-warning">No vehicles with these criteria were found.</div>
+    <% } %>
+  </div>
+<% } %>
+</div>

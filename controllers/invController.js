@@ -389,4 +389,51 @@ invCont.deleteInventoryItem = async function (req, res, next) {
     res.redirect(`/inv/delete/${inv_id}`);
   }
 };
+
+/* ***************************
+ *  Build search view
+ * ************************** */
+invCont.buildSearchView = async function (req, res) {
+  let nav = await utilities.getNav();
+  const classifications = await invModel.getClassifications();
+  
+  res.render("inventory/advanced-search", {
+    title: "Búsqueda Avanzada",
+    nav,
+    classifications: classifications.rows || [], // 👈 Asegura un array
+    results: null,
+    formData: null,
+    utilities // 👈 Pasa las utilidades a la vista
+  });
+};
+
+invCont.searchVehicles = async function (req, res) {
+  const filters = req.body;
+  try {
+    let nav = await utilities.getNav();
+    const classifications = await invModel.getClassifications();
+    const results = await invModel.searchVehicles(filters);
+
+    res.render("inventory/advanced-search", {
+      title: "Resultados de Búsqueda",
+      nav,
+      classifications: classifications.rows || [], // 👈 Asegura un array
+      results: results || [], // 👈 Asegura un array
+      formData: req.body,
+      utilities // 👈 Pasa las utilidades a la vista
+    });
+  } catch (error) {
+    console.error("Error en searchVehicles:", error);
+    res.status(500).render("inventory/advanced-search", {
+      title: "Error",
+      nav: await utilities.getNav(),
+      classifications: [],
+      results: null,
+      formData: null,
+      utilities
+    });
+  }
+};
+
+
 module.exports = invCont;
