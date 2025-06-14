@@ -274,7 +274,7 @@ h4 {
     gap: 1rem;
     padding: 1rem;
     text-align: center;
-    margin: 1rem;
+    /* margin: 1rem; */
   }
 
   .siteName a {
